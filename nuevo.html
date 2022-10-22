@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Nueva moto</title>
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            matricula.disabled = !matriculada.checked;
+
+            $('#matriculada').change(function () {
+                matricula.disabled = !matriculada.checked;
+            });
+
+            $('#guardar').click(function () {
+                var moto = {
+                    'marca': nuevo['marca'].value,
+                    'modelo': nuevo['modelo'].value,
+                    'kms': nuevo['kms'].value,
+                    'precio': nuevo['precio'].value,
+                    'matriculada': nuevo['matriculada'].checked ? 1 : 0,
+                    'matricula': nuevo['matricula'].value.toUpperCase(),
+                    'color': nuevo['color'].value.toUpperCase(),
+                };
+
+                $.ajax({
+                    url: urlBase + '/moto',
+                    type: 'POST',
+                    data: JSON.stringify(moto),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (r) {
+                        if (r.status == 'OK') {
+                            salida.innerHTML = 'GUARDADO ' + r.status;
+                            setTimeout(function () {
+                                location.href = 'index.html';
+                            }, 2000);
+                        } else {
+                            salida.innerHTML = r.status + ' ' + r.message;
+                        }
+                    },
+                    error: function (r) {
+                        var texto = r.responseJSON.status + ' ' + r.responseJSON.message;
+                        texto += '<ul>';
+                        for (let i in r.responseJSON.errors)
+                            texto += '<li>' + i + ': ' + r.responseJSON.errors[i] + '</li>';
+                        texto += '</ul>';
+                        salida.innerHTML = texto;
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <h1>Nueva moto</h1>
+    <ul id="menu">
+        <li><a href="index.html">Lista de motos</a></li>
+    </ul>
+
+    <h2>Formulario de inserción</h2>
+    <form id="nuevo">
+        <label>Marca</label><input type="text" name="marca"><br>
+        <label>Modelo</label><input type="text" name="modelo"><br>
+        <label>Kms</label><input type="text" name="kms"><br>
+        <label>Precio</label><input type="text" name="precio"><br>
+        <input id="matriculada" type="checkbox" name="matriculada" value="1">
+        <label>Matriculada</label><br>
+        <label>Matricula</label>
+        <input id="matricula" type="text" name="matricula"><br>
+        <label>Color</label><input type="color" name="color"><br>
+
+        <button type="button" id="guardar">Guardar</button>
+        <button type="reset">Reset</button>
+    </form>
+    <br><br>
+    <output id="salida"></output>
+</body>
+
+</html>

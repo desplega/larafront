@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Detalles de la moto</title>
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            var url = urlBase + "/moto/" + getId();
+
+            $.get(url).done(function (json) {
+                $('#id').text(json.results[0].id);
+                $('#marca').text(json.results[0].marca);
+                $('#modelo').text(json.results[0].modelo);
+                $('#kms').text(json.results[0].kms);
+                $('#precio').text(json.results[0].precio);
+                $('#matriculada').text(json.results[0].matriculada);
+                $('#matricula').text(json.results[0].matricula);
+                $('#color').text(json.results[0].color);
+                $('#color').css('color', json.results[0].color);
+            }).fail(function () {
+                $('#id').text("Error al recuperar la moto.");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Detalles de la moto</h1>
+    <ul id="menu">
+        <li><a href="index.html">Lista de motos</a></li>
+        <li><a href="nuevo.html">Nueva moto</a></li>
+    </ul>
+
+    <h2>Detalles de la moto</h2>
+    <ul>
+        <li><b>ID</b>: <output id="id"></output></li>
+        <li><b>Marca</b>: <output id="marca"></output></li>
+        <li><b>Modelo</b>: <output id="modelo"></output></li>
+        <li><b>Kms</b>: <output id="kms"></output></li>
+        <li><b>Precio</b>: <output id="precio"></output></li>
+        <li><b>Matriculada</b>: <output id="matriculada"></output></li>
+        <li><b>Matricula</b>: <output id="matricula"></output></li>
+        <li><b>Color</b>: <output id="color"></output></li>
+    </ul>
+
+    <div id="links">
+        <a class="cursor-pointer" onclick="location.href='editar.html?id='+getId()">Editar</a>
+        - <a class="cursor-pointer" onclick="location.href='borrar.html?id='+getId()">Borrar</a>
+    </div>
+</body>
+
+</html>
