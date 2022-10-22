@@ -13,6 +13,7 @@
                 $.ajax({
                     url: urlBase + '/moto/' + getId(),
                     type: 'DELETE',
+                    contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     success: function (r) {
                         salida.innerHTML = 'BORRADO ' + r.status;
@@ -43,9 +44,10 @@
 
     <button type="button" id="borrar">Borrar</button>
 
+    <hr>
     <div id="links">
         <a class="cursor-pointer" onclick="location.href='ver.html?id='+getId()">Ir a detalles</a>
-        - <a class="cursor-pointer" onclick="location.href='editar.html?id='+getId()">Editar</a>
+        <a class="cursor-pointer" onclick="location.href='editar.html?id='+getId()">Editar</a>
     </div>
 
     <output id="salida"></output>

@@ -29,8 +29,9 @@
                 $.ajax({
                     url: urlBase + '/moto',
                     type: 'POST',
-                    data: JSON.stringify(moto),
                     contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify(moto),
                     success: function (r) {
                         if (r.status == 'OK') {
                             salida.innerHTML = 'GUARDADO ' + r.status;
