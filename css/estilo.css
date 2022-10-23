@@ -50,6 +50,10 @@ li {
     margin: 5px 0;
 }
 
+li div {
+    display: inline;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -62,6 +66,14 @@ label{
 hr {
     background-color: gray;
     border: 1px solid gray;
+}
+
+output {
+    margin-top: 22px;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
+    color: white;
 }
 
 input[type=text],

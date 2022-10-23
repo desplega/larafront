@@ -52,8 +52,10 @@
                     success: function (r) {
                         if (r.status == 'OK') {
                             salida.innerHTML = 'ACTUALIZADO ' + r.status;
+                            salida.style.background = '#367952';
                         } else {
                             salida.innerHTML = r.status + ' ' + r.message;
+                            salida.style.background = '#cc3c43';
                         }
                     },
                     error: function (r) {
@@ -63,6 +65,7 @@
                             texto += '<li>' + i + ': ' + r.responseJSON.errors[i] + '</li>';
                         texto += '</ul>';
                         salida.innerHTML = texto;
+                        salida.style.background = '#cc3c43';
                     }
                 });
             });
